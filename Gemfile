@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'virtus', '~> 0.0.1'
+gem 'virtus', '~> 0.5.4'
 
 group :development do
   gem "jeweler"
