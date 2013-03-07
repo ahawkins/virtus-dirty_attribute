@@ -18,6 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'virtus'
+  gem.add_development_dependency 'pry'
 end
 
 Jeweler::GemcutterTasks.new

@@ -4,10 +4,11 @@ shared_examples_for "Dirty Trackable Attribute" do
       include Virtus
       include Virtus::Dirty
     end
+
     model.attribute attribute_name, described_class
     model
   end
-
+  
   context "when object is clean" do
     let(:object) do
       model.new
