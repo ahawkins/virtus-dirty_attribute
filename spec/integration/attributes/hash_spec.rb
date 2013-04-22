@@ -31,7 +31,7 @@ describe Virtus::Attribute::Hash do
       end
 
       it "sets dirty attributes hash" do
-        object.dirty_attributes.should == { :settings => { :one => '1' } }
+        object.dirty_attributes.should == { :settings => { :one => '1' } }        
       end
     end
   end

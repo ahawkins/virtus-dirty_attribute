@@ -103,19 +103,19 @@ module Virtus
       # @api private
       def _create_writer_with_dirty_tracking(name)
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
-          def #{name}=(value)
-            prev_value = #{name}
-            new_value  = super
-            
-            if prev_value != new_value
+          def #{name}=(new_regular_object)
+            prev_object = #{name}
+            new_virtus_object  = super
+
+            if prev_object != new_regular_object
               unless original_attributes.key?(:#{name})
-                original_attributes[:#{name}] = prev_value
+                original_attributes[:#{name}] = prev_object
               end
 
-              attribute_dirty!(:#{name}, value)
+              attribute_dirty!(:#{name}, new_regular_object)
             end
 
-            new_value
+            new_virtus_object
           end
         RUBY
       end
