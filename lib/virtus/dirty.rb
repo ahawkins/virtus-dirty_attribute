@@ -86,8 +86,8 @@ module Virtus
       #
       # @api public
       def attribute(name, type, options = {})
-        _create_writer_with_dirty_tracking(name, attribute = super)
-        attribute
+        _create_writer_with_dirty_tracking(name)
+        super
       end
 
       private
@@ -101,18 +101,18 @@ module Virtus
       #   an attribute instance
       #
       # @api private
-      def _create_writer_with_dirty_tracking(name, attribute)
+      def _create_writer_with_dirty_tracking(name)
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           def #{name}=(value)
             prev_value = #{name}
             new_value  = super
-
+            
             if prev_value != new_value
               unless original_attributes.key?(:#{name})
                 original_attributes[:#{name}] = prev_value
               end
 
-              attribute_dirty!(:#{name}, new_value)
+              attribute_dirty!(:#{name}, value)
             end
 
             new_value
