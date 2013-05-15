@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Virtus::Attribute::Array do
   it_should_behave_like 'Dirty Trackable Attribute' do
-    let(:attribute_name)        { :colors }
-    let(:attribute_value)       { [ 'red', 'green', 'blue' ] }
-    let(:attribute_value_other) { [ 'orange', 'yellow', 'gray' ] }
+    let(:attribute)     { :colors }
+    let(:initial_value) { [ 'red', 'green', 'blue' ] }
+    let(:other_value)   { [ 'orange', 'yellow', 'gray' ] }
   end
 end

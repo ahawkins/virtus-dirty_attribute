@@ -5,83 +5,70 @@ shared_examples_for "Dirty Trackable Attribute" do
       include Virtus::Dirty
     end
 
-    model.attribute attribute_name, described_class
+    model.attribute attribute, described_class
     model
   end
 
-  context "when object is clean" do
-    let(:object) do
-      model.new
-    end
+  subject { model.new }
 
-    it "doesn't mark it as dirty" do
-      object.dirty?.should be(false)
-    end
+  it { should_not be_dirty }
+
+  it "should not be dirty after instantiating with attributes" do
+    object = model.new attribute => initial_value
+    object.should_not be_dirty
   end
 
   context "when object is dirty" do
-    let(:object) { model.new }
-
     it "should become clean again" do
-      object[attribute_name] = attribute_value
-      object.clean!
+      subject[attribute] = initial_value
+      subject.clean!
 
-      object.should_not be_dirty
+      subject.should_not be_dirty
 
-      object.original_attributes.should be_empty
-      object.dirty_attributes.should be_empty
+      subject.original_attributes.should be_empty
+      subject.dirty_attributes.should be_empty
     end
   end
 
   context "when value is set on a new object" do
-    let(:object) do
-      model.new
-    end
-
     before do
-      object[attribute_name] = attribute_value
+      subject[attribute] = initial_value
     end
 
-    it "marks the object as dirty" do
-      object.dirty?.should be(true)
-    end
+    it { should be_dirty }
 
     it "marks the attribute as dirty" do
-      object.attribute_dirty?(attribute_name).should be(true)
+      subject.attribute_dirty?(attribute).should be(true)
     end
 
     it "sets new value in dirty_attributes hash" do
-      object.dirty_attributes[attribute_name].should == attribute_value
+      subject.dirty_attributes[attribute].should == initial_value
     end
   end
 
   context "when other value is set on a new object with attribute already set" do
-    let(:object) do
-      model.new(attribute_name => attribute_value)
-    end
-
-    let(:new_value) do
-      model.attribute_set[attribute_name].coerce(attribute_value_other)
-    end
+    let(:subject) { model.new attribute => initial_value }
 
     before do
-      object[attribute_name] = new_value
+      subject[attribute] = other_value
     end
 
-    it "marks the object as dirty" do
-      object.dirty?.should be(true)
+    it "should have different values" do
+      initial_value.should_not == other_value
     end
+
+    it { should be_dirty }
 
     it "marks the attribute as dirty" do
-      object.attribute_dirty?(attribute_name).should be(true)
+      subject.attribute_dirty?(attribute).should be_true
     end
 
     it "sets new value in dirty_attributes hash" do
-      object.dirty_attributes[attribute_name].should == new_value
+      subject.dirty_attributes[attribute].should == other_value
     end
 
     it "sets original value" do
-      object.original_attributes[attribute_name].should == attribute_value
+      subject.original_attributes[attribute].should == initial_value
     end
   end
 end

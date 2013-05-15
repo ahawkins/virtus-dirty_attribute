@@ -15,6 +15,11 @@ module Virtus
       base.extend(Dirty::Attribute)
     end
 
+    def initialize(*args)
+      super(*args)
+      clean!
+    end
+
     # Returns if an object is dirty
     #
     # @return [TrueClass, FalseClass]
