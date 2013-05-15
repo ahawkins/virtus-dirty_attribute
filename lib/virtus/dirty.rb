@@ -77,6 +77,13 @@ module Virtus
       @_dirty_session ||= Session.new(self)
     end
 
+    # Marks this object as clean
+    #
+    # @api public
+    def clean!
+      dirty_session.clean!
+    end
+
     module Attribute
       # Creates an attribute writer with dirty tracking
       #

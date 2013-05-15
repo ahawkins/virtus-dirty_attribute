@@ -53,6 +53,14 @@ module Virtus
       def dirty?(name = nil)
         name ? dirty_attributes.key?(name) : dirty_attributes.any?
       end
+
+      # Marks object as clean and resets original attributes
+      #
+      # @api public
+      def clean!
+        @_original_attributes = subject.attributes
+        dirty_attributes.clear
+      end
     end # Session
   end # Dirty
 end # Virtus

@@ -8,7 +8,7 @@ shared_examples_for "Dirty Trackable Attribute" do
     model.attribute attribute_name, described_class
     model
   end
-  
+
   context "when object is clean" do
     let(:object) do
       model.new
@@ -16,6 +16,20 @@ shared_examples_for "Dirty Trackable Attribute" do
 
     it "doesn't mark it as dirty" do
       object.dirty?.should be(false)
+    end
+  end
+
+  context "when object is dirty" do
+    let(:object) { model.new }
+
+    it "should become clean again" do
+      object[attribute_name] = attribute_value
+      object.clean!
+
+      object.should_not be_dirty
+
+      object.original_attributes[attribute_name].should == attribute_value
+      object.original_attributes.should == object.attributes
     end
   end
 
