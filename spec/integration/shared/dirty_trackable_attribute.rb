@@ -28,8 +28,8 @@ shared_examples_for "Dirty Trackable Attribute" do
 
       object.should_not be_dirty
 
-      object.original_attributes[attribute_name].should == attribute_value
-      object.original_attributes.should == object.attributes
+      object.original_attributes.should be_empty
+      object.dirty_attributes.should be_empty
     end
   end
 

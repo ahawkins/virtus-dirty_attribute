@@ -58,7 +58,8 @@ module Virtus
       #
       # @api public
       def clean!
-        @_original_attributes = subject.attributes
+        #@_original_attributes = subject.attributes
+        original_attributes.clear
         dirty_attributes.clear
       end
     end # Session
