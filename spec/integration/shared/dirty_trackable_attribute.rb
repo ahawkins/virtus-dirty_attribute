@@ -47,7 +47,7 @@ shared_examples_for "Dirty Trackable Attribute" do
     end
 
     let(:new_value) do
-      model.attributes[attribute_name].coerce(attribute_value_other)
+      model.attribute_set[attribute_name].coerce(attribute_value_other)
     end
 
     before do
