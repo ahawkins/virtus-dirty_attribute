@@ -3,6 +3,7 @@ shared_examples_for "Dirty Trackable Attribute" do
     model = Class.new do
       include Virtus
       include Virtus::Dirty
+      include Virtus::Dirty::InitiallyClean
     end
 
     model.attribute attribute, described_class
