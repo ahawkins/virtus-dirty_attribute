@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe Virtus::Attribute::Decimal do
+describe "decimals" do
   it_should_behave_like 'Dirty Trackable Attribute' do
+    let(:type)          { BigDecimal }
     let(:attribute)     { :price }
     let(:initial_value) { BigDecimal("12.3456789") }
     let(:other_value)   { BigDecimal("21.3324818") }
