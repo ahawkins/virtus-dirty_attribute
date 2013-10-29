@@ -6,11 +6,11 @@ require 'virtus/dirty/version'
 Gem::Specification.new do |spec|
   spec.name          = "virtus-dirty"
   spec.version       = Virtus::Dirty::VERSION
-  spec.authors       = ["twinturbo"]
-  spec.email         = ["me@broadcastingadam.com"]
+  spec.authors       = ["ahawkins"]
+  spec.email         = ["adam@hawkins.io"]
   spec.description   = %q{Dirty Tracking for Virtus objects}
   spec.summary       = %q{}
-  spec.homepage      = "https://github.com/twinturbo/virtus-dirty"
+  spec.homepage      = "https://github.com/ahawkins/virtus-dirty"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
