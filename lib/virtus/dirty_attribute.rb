@@ -48,6 +48,10 @@ module Virtus
       dirty_session.dirty?
     end
 
+    def clean?
+      !dirty?
+    end
+
     def attribute_dirty?(name)
       dirty_session.dirty?(name)
     end

@@ -18,11 +18,11 @@ describe "Dirty tracking" do
 
   subject { model.new }
 
-  it { should_not be_dirty }
+  it { should be_clean }
 
   it "should not be dirty after instantiating with attributes" do
     object = model.new attribute => initial_value
-    object.should_not be_dirty
+    object.should be_clean
   end
 
   context "when object is dirty" do
@@ -30,7 +30,7 @@ describe "Dirty tracking" do
       subject[attribute] = initial_value
       subject.clean!
 
-      subject.should_not be_dirty
+      subject.should be_clean
 
       subject.original_attributes.should be_empty
       subject.dirty_attributes.should be_empty
@@ -47,7 +47,7 @@ describe "Dirty tracking" do
 
       subject[attribute] = initial_value
 
-      subject.should_not be_dirty
+      subject.should be_clean
       subject.dirty_attributes.should be_empty
       subject.original_attributes.should be_empty
     end
