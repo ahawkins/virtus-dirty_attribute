@@ -1,19 +1,23 @@
-= VirtusDirty
+= Virtus::DirtyAttribute
 
 Support for dirty tracking of virtus attributes.
 
 == Usage
 
-  class Post
-    include Virtus
-    include Virtus::DirtyTracking
+  require 'virtus-drity_attribute'
 
-    attribute  :title,   String
-    attribute, :content, String
-    attribute, :meta,    Hash
+  class Post
+    include Virtus.model
+    include Virtus::DirtyAttribute
+
+    attribute :title,   String
+    attribute :content, String
+    attribute :meta,    Hash
   end
 
   post = Post.new(:title => 'Foo', :meta => { :tags => ['red', 'green'] })
+
+  post.dirty? # => false
 
   post.title = 'Bar'
 
