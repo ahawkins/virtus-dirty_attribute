@@ -35,6 +35,22 @@ describe "Dirty tracking" do
       subject.original_attributes.should be_empty
       subject.dirty_attributes.should be_empty
     end
+
+    it "should become clean when the attribute goes back to the initial value" do
+      subject[attribute] = initial_value
+      subject.clean!
+
+      subject[attribute] = other_value
+
+      subject.should be_dirty
+      subject.dirty_attributes.should include(attribute)
+
+      subject[attribute] = initial_value
+
+      subject.should_not be_dirty
+      subject.dirty_attributes.should be_empty
+      subject.original_attributes.should be_empty
+    end
   end
 
   context "when value is set on a new object" do

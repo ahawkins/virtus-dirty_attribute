@@ -17,9 +17,11 @@ module Virtus
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           def #{name}=(new_regular_object)
             prev_object = #{name}
-            new_virtus_object  = super
+            new_virtus_object = super
 
-            if prev_object != new_regular_object
+            if attribute_dirty?(:#{name}) && original_attributes[:#{name}] == new_virtus_object
+              attribute_clean!(:#{name})
+            elsif prev_object != new_virtus_object
               unless original_attributes.key?(:#{name})
                 original_attributes[:#{name}] = prev_object
               end
@@ -42,73 +44,37 @@ module Virtus
       clean!
     end
 
-    # Returns if an object is dirty
-    #
-    # @return [TrueClass, FalseClass]
-    #
-    # @api public
     def dirty?
       dirty_session.dirty?
     end
 
-    # Returns if an attribute with the given name is dirty.
-    #
-    # @param [Symbol] name
-    #
-    # @return [TrueClass, FalseClass]
-    #
-    # @api public
     def attribute_dirty?(name)
       dirty_session.dirty?(name)
     end
 
-    # Explicitly sets an attribute as dirty.
-    #
-    # @param [Symbol] name
-    #   the name of an attribute
-    #
-    # @param [Object] value
-    #   a value of an attribute
-    #
-    # @api public
-    def attribute_dirty!(name, value)
-      dirty_session.dirty!(name, value)
+    def clean!
+      dirty_session.clean!
     end
 
-    # Returns all dirty attributes
-    #
-    # @return [Hash]
-    #   a hash indexed with attribute names
-    #
-    # @api public
     def dirty_attributes
       dirty_session.dirty_attributes
     end
 
-    # Returns original attributes
-    #
-    # @return [Hash]
-    #   a hash indexed with attribute names
-    #
-    # @api public
     def original_attributes
       dirty_session.original_attributes
     end
 
-    # Returns the current dirty tracking session
-    #
-    # @return [Virtus::Dirty::Session]
-    #
-    # @api private
-    def dirty_session
-      @_dirty_session ||= Session.new(self)
+    private
+    def attribute_dirty!(name, value)
+      dirty_session.dirty!(name, value)
     end
 
-    # Marks this object as clean
-    #
-    # @api public
-    def clean!
-      dirty_session.clean!
+    def attribute_clean!(name)
+      dirty_session.attribute_clean!(name)
+    end
+
+    def dirty_session
+      @_dirty_session ||= Session.new(self)
     end
   end
 end
