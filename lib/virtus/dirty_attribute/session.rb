@@ -1,5 +1,5 @@
 module Virtus
-  module Dirty
+  module DirtyAttribute
     class Session
       attr_reader :subject
 
@@ -62,6 +62,6 @@ module Virtus
         original_attributes.clear
         dirty_attributes.clear
       end
-    end # Session
-  end # Dirty
-end # Virtus
+    end
+  end
+end

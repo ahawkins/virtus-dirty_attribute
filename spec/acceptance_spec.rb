@@ -1,12 +1,25 @@
-shared_examples_for "Dirty Trackable Attribute" do
+require 'spec_helper'
+
+describe "Dirty tracking" do
+  let(:attribute) { :title }
+  let(:initial_value) { 'Virtus' }
+  let(:other_value) { 'Virtus *dirty* '}
+
   let(:model) do
     model = Class.new do
       include Virtus.model
+<<<<<<< HEAD:spec/integration/shared/dirty_trackable_attribute.rb
       include Virtus::Dirty
       include Virtus::Dirty::InitiallyClean
     end
 
     model.attribute attribute, type
+=======
+      include Virtus::DirtyAttribute
+    end
+
+    model.attribute attribute, String
+>>>>>>> Prepare for initial release:spec/acceptance_spec.rb
     model
   end
 
