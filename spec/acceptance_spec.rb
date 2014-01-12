@@ -9,6 +9,7 @@ describe "Dirty tracking" do
     model = Class.new do
       include Virtus.model
       include Virtus::DirtyAttribute
+      include Virtus::DirtyAttribute::InitiallyClean
     end
 
     model.attribute attribute, String

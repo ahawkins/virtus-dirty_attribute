@@ -35,13 +35,15 @@ module Virtus
       end
     end
 
-    def self.included(base)
-      base.extend ClassMethods
+    module InitiallyClean
+      def initialize(*args)
+        super(*args)
+        clean!
+      end
     end
 
-    def initialize(*args)
-      super(*args)
-      clean!
+    def self.included(base)
+      base.extend ClassMethods
     end
 
     def dirty?
