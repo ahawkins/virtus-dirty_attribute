@@ -54,8 +54,11 @@ module Virtus
       !dirty?
     end
 
-    def attribute_dirty?(name)
-      dirty_session.dirty?(name)
+    def attribute_dirty?(name, options = {})
+      result = dirty_session.dirty?(name)
+      result &&= options[:to] == dirty_attributes[name] if options.key?(:to)
+      result &&= options[:from] == original_attributes[name] if options.key?(:from)
+      result
     end
 
     def clean!

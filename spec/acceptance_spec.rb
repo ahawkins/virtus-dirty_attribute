@@ -87,6 +87,18 @@ describe "Dirty tracking" do
       expect(subject.attribute_dirty?(attribute)).to eq(true)
     end
 
+    it 'marks the attribute with options as dirty' do
+      expect(
+        subject.attribute_dirty?(attribute, from: initial_value, to: other_value)
+      ).to eq(true)
+    end
+
+    it 'not marks the attribute with options as dirty' do
+      expect(
+        subject.attribute_dirty?(attribute, from: other_value, to: initial_value)
+      ).to eq(false)
+    end
+
     it "sets new value in dirty_attributes hash" do
       expect(subject.dirty_attributes[attribute]).to eq(other_value)
     end
