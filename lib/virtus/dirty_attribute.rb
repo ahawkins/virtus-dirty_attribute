@@ -26,7 +26,7 @@ module Virtus
                 original_attributes[:#{name}] = prev_object
               end
 
-              attribute_dirty!(:#{name}, new_regular_object)
+              attribute_dirty!(:#{name}, new_virtus_object)
             end
 
             new_virtus_object
