@@ -1,9 +1,11 @@
-= Virtus::DirtyAttribute
+Virtus::DirtyAttribute
+======================
 
 Support for dirty tracking of virtus attributes.
 
-== Usage
+### Usage
 
+```ruby
   require 'virtus-drity_attribute'
 
   class Post
@@ -25,13 +27,16 @@ Support for dirty tracking of virtus attributes.
 
   post.attribute_dirty?(:title) # => true
 
+  post.attribute_dirty?(:title, from: 'Foo', to: 'Bar') # => true
+
   post.meta[:tags] << 'blue'
 
   post.attribute_dirty?(:meta) # => true
 
   post.dirty_attributes # => {:title => 'Bar', :meta=>{:tags=>["red", "green", "blue"]}}
+```
 
-== Note on Patches/Pull Requests
+### Note on Patches/Pull Requests
 
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -41,6 +46,6 @@ Support for dirty tracking of virtus attributes.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+### Copyright
 
 Copyright (c) 2011 Jingwen Owen Ou. See LICENSE for details.

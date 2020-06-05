@@ -1,2 +1,4 @@
-require 'bundler/setup'
+require 'rspec'
+require 'byebug'
+
 require 'virtus-dirty_attribute'
